@@ -1,1 +1,54 @@
-/* Enter your custom styles here */
+.sapUiRespGrid.sapUiRespGridHSpace1>div {
+    margin: 0 !important;
+    border:none;
+}
+.wrap {
+   display:flex;
+   width:100vw;
+   height: 100vh;;
+   justify-content:center;
+   align-items:center;
+}
+.box {
+   border:1px solid black; 
+   width:100px; 
+   height:100px;
+}
+.box_one,
+.box_two,
+.box_three {
+    border-top: none;
+    border-bottom: none;
+}
+.box_one,
+.box_four,
+.box_seven {
+    border-left: none;
+    border-right:none;
+}
+
+.box_three,
+.box_six,
+.box_nine {
+    border-right: none;
+    border-left: none;
+}
+
+.box_seven,
+.box_eight,
+.box_nine {
+    border-top: none;
+    border-bottom: none;
+
+}
+.container {
+    width:302px;
+    height:302px;
+    display:flex;
+    flex-wrap:wrap;
+}
+.cross {
+    background-image: url('assets/3.jpeg');
+    background-size: cover;
+}
+

@@ -3,7 +3,9 @@
 		<App id="app">
 			<pages>
 				<Page id="page" title="{i18n>title}">
-					<content></content>
+					<content>
+                    <mvc:XMLView viewName="ns.sap.view.Game"/>
+                    </content>
 				</Page>
 			</pages>
 		</App>

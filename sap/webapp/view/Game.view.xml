@@ -1,0 +1,21 @@
+<mvc:View controllerName="ns.sap.controller.Game" 
+xmlns:mvc="sap.ui.core.mvc" 
+displayBlock="true" 	
+xmlns="sap.m"
+xmlns:l="sap.ui.layout"
+xmlns:grid="sap.ui.layout.cssgrid"
+xmlns:html="http://www.w3.org/1999/xhtml">
+<html:div class="wrap">
+<html:div class="container">
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_one" id="box_1" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_two" id="box_2" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_three" id="box_3" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_four" id="box_4" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_five" id="box_5" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_six" id="box_6" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_seven" id="box_7" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_eight" id="box_8" press=".onMakeStep"/>
+<html:div class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_nine" id="box_9" press=".onMakeStep"/>
+</html:div>
+</html:div>
+</mvc:View>
