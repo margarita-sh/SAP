@@ -6,12 +6,14 @@ sap.ui.define([
 
         return Controller.extend("ns.sap.controller.Game", {
 
-            onInit: function () {
+        
+            onMakeStep: function (event) {
+                
 
             },
-            onMakeStep: function () {
-            console.log(this)
-            },
+        
+
+
             /*      onAfterRendering:function(){
                      document.querySelectorAll('.box').forEach(item => {
        item.addEventListener('click', event => {

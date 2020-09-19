@@ -1,7 +1,21 @@
-.sapUiRespGrid.sapUiRespGridHSpace1>div {
+/* .sapUiRespGrid.sapUiRespGridHSpace1>div {
     margin: 0 !important;
     border:none;
+} */
+
+/* .sapMBtn .sapMBtnInner {
+    display: flex;
+    justify-content: center;
+} */
+.sapMBtnInner {
+ background:transparent !important;
+ border:none;
+outline: 0 !important;
+outline-offset: 0 !important;
+width:90px;
+height: 90px;
 }
+
 .wrap {
    display:flex;
    width:100vw;
