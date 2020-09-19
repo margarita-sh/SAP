@@ -1,27 +1,18 @@
-/* .sapUiRespGrid.sapUiRespGridHSpace1>div {
-    margin: 0 !important;
-    border:none;
-} */
-
-/* .sapMBtn .sapMBtnInner {
-    display: flex;
-    justify-content: center;
-} */
 .sapMBtnInner {
- background:transparent !important;
- border:none;
+background:transparent !important;
+border:none;
 outline: 0 !important;
 outline-offset: 0 !important;
-width:90px;
-height: 90px;
+width:100px;
+height: 100px;
 }
 
 .wrap {
    display:flex;
-   width:100vw;
-   height: 100vh;;
+   height: 100vh;
    justify-content:center;
    align-items:center;
+   padding:0;
 }
 .box {
    border:1px solid black; 
@@ -60,9 +51,10 @@ height: 90px;
     height:302px;
     display:flex;
     flex-wrap:wrap;
+    margin:0;
 }
 .cross {
-    background-image: url('assets/3.jpeg');
+    background-image: url('../assets/cross.png');
     background-size: cover;
 }
 
