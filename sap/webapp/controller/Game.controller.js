@@ -5,15 +5,52 @@ sap.ui.define([
         "use strict";
 
         return Controller.extend("ns.sap.controller.Game", {
+            gameArray: [
+                ['', '', ''],
+                ['', '', ''],
+                ['', '', '']
+            ],
+
             onMakeStep: function (event) {
                 let idSAP = event.getSource().getId();
-                //let id = idSAP.split('--').slice(1).join('');
-                let c = document.querySelector('#' + idSAP).classList;
-                if (c.contains('cross')) {
-                    c.remove('cross')
+                console.log(idSAP);
+                let id = idSAP.split('--').slice(1).join();
+                let coordStep = id.split('_').slice(1).join();
+                let coordString = coordStep.split('-').slice(0, 1).join();
+                let coordColumn = coordStep.split('-').slice(1).join();
+                /*       console.log('this.gameArray', this.gameArray); */
+                if (this.gameArray[coordString][coordColumn] === 'X' || this.gameArray[coordString][coordColumn] === '0') {
+                    alert('Выберите другую ячейку');
                 } else {
-                    c.add('cross')
+                    this.gameArray[coordString][coordColumn] = 'X';
+                    let cellUser = document.querySelector('#' + idSAP).classList.add('cross');
+                      this.onStepRival();
                 }
+                console.log(this.gameArray);
             },
+
+
+
+            onStepRival: function () {
+                setTimeout(() => {
+                    for (let i = 0; i < this.gameArray.length; i++) {
+                        for (let j = 0; j < this.gameArray.length; j++) {
+                            if (this.gameArray[i][j] === '') {
+                                this.gameArray[i][j] = '0';
+                                let idCell = `__xmlview0--box_${i}-${j}`;
+                                console.log(idCell);
+                                let cellRival = document.querySelector('#' + idCell).classList.add('zero');
+                                return;
+                            } else {
+                                console.log('something went wrong')
+                            }
+                        }
+                    }
+                }, 500);
+
+            },
+            onUpload: function () {
+
+            }
         });
     });

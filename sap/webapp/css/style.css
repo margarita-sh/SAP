@@ -13,9 +13,12 @@ height: 100px;
    justify-content:center;
    align-items:center;
    padding:0;
+   background:linear-gradient(rgba(0,0,0,0.4), transparent 1px),
+   linear-gradient(90deg, rgba(0,0,0,0.4), transparent 1px);
+   background-size:30px 30px;
 }
 .box {
-   border:1px solid black; 
+   border:2px solid black; 
    width:100px; 
    height:100px;
 }
@@ -55,6 +58,11 @@ height: 100px;
 }
 .cross {
     background-image: url('../assets/cross.png');
+    background-size: cover;
+}
+
+.zero {
+    background-image: url('../assets/zero.png');
     background-size: cover;
 }
 
