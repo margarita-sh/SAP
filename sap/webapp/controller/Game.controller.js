@@ -24,7 +24,7 @@ sap.ui.define([
                 } else {
                     this.gameArray[coordString][coordColumn] = 'X';
                     let cellUser = document.querySelector('#' + idSAP).classList.add('cross');
-                      this.onStepRival();
+                    this.onStepRival();
                 }
                 console.log(this.gameArray);
             },
@@ -35,21 +35,26 @@ sap.ui.define([
                 setTimeout(() => {
                     for (let i = 0; i < this.gameArray.length; i++) {
                         for (let j = 0; j < this.gameArray.length; j++) {
-                            if (this.gameArray[i][j] === '') {
-                                this.gameArray[i][j] = '0';
-                                let idCell = `__xmlview0--box_${i}-${j}`;
-                                console.log(idCell);
-                                let cellRival = document.querySelector('#' + idCell).classList.add('zero');
-                                return;
-                            } else {
-                                console.log('something went wrong')
-                            }
+                                if (this.gameArray[i][j] === '') {
+                                   this.gameArray[i][j] = '0';
+                                   let idCell = `__xmlview0--box_${i}-${j}`;
+                                   console.log(idCell);
+                                   let cellRival = document.querySelector('#' + idCell).classList.add('zero');
+                                   return;
+                               } else {
+                                   console.log('something went wrong')
+                               } 
                         }
                     }
                 }, 500);
 
             },
-            onUpload: function () {
+            checkWinner: function() {
+                if(this.gameArray[0][0] =='X' && this.gameArray[0][1] =='X' && this.gameArray[0][2] =='X' || this.gameArray[1][0] =='X' && this.gameArray[1][1] =='X' && this.gameArray[1][2] =='X' || this.gameArray[2][0] =='X' && this.gameArray[2][1] =='X' && this.gameArray[2][2] =='X' || this.gameArray[0][0] =='X' && this.gameArray[1][1] =='X' && this.gameArray[2][2] =='X') {
+                    alert('ТЫ победил')
+                }else{
+                    alert('Ты проиграл');
+                }
 
             }
         });
