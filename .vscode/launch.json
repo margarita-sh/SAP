@@ -20,6 +20,26 @@
       },
       "envFile": "${workspaceFolder}/sap/.env1",
       "preLaunchTask": "Build SAP1"
+    },
+    {
+      "name": "Run SAP-sap",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/sap1-approuter/node_modules/@sap/html5-repo-mock/index.js",
+      "args": [
+        "--standalone",
+        "/nssap/index.html",
+        "--ui5",
+        "{\"version\":\".\"}"
+      ],
+      "cwd": "${workspaceFolder}/sap",
+      "env": {
+        "PORT": "6004",
+        "MOCK_LOOKUP_DIRS": "[\"webapp\"]",
+        "run.config": "{\"handlerId\":\"ui5_run_config_handler_id\",\"runnableId\":\"/home/user/projects/SAP/sap\"}"
+      },
+      "envFile": "${workspaceFolder}/sap/.env2",
+      "preLaunchTask": "Build SAP"
     }
   ]
 }
