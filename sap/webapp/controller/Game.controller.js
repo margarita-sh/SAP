@@ -90,13 +90,13 @@ sap.ui.define([
                                     document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
                                     return;
                                 } else {
-                                    console.log('item', item);
+                                   /*  console.log('item', item);
                                     let freeCellRandom = item.split('');
                                     let [i, j] = freeCellRandom;
                                     this.gameArray[i][j] = '0';
                                     let idCell = `__xmlview0--box_${i}-${j}`;
                                     document.querySelector('#' + idCell).classList.add('zero');
-                                    return;
+                                    return; */
 
                                 }
                             }
