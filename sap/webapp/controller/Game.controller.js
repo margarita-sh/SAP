@@ -27,6 +27,8 @@ sap.ui.define([
             finishGame: function () {
                 this.gameState = 'process';
                 this.gameArray = this.gameArray.map(item => item.map(i => ''));
+                this.winUser = [];
+                this.winAI = [];
                 document.querySelectorAll('.zero').forEach(item => item.classList.remove('zero'));
                 document.querySelectorAll('.cross').forEach(item => item.classList.remove('cross'));
             },
@@ -64,54 +66,75 @@ sap.ui.define([
                 this.canToClick = false;
                 setTimeout(() => {
                     const check = () => {
-                        for (let i = 0; i < this.gameArray.length; i++) {
-                            for (let j = 0; j < this.gameArray.length; j++) {
-                                if (this.gameArray[1][1] == '') {
-                                    this.gameArray[1][1] = '0';
-                                    document.querySelector('#' + `__xmlview0--box_1-1`).classList.add('zero');
+                        this.winsArray.forEach((item) => {
+                            if (this.gameArray[1][1] == '') {
+                                this.gameArray[1][1] = '0';
+                                document.querySelector('#__xmlview0--box_1-1').classList.add('zero');
+                                return;
+                            } else {
+                                let count = 0;
+                                item.forEach((data) => {
+                                    if (this.winUser.indexOf(data) > -1) {
+                                        count++
+                                    }
+                                })
+                                if (count == 2) {
+                                    let freeCell = item.filter(i => {
+                                        if (this.winUser.indexOf(i) === -1) {
+                                            return i
+                                        }
+                                    });
+                                    let [i, j] = freeCell.join('').split('');
+                                    console.log(i, j);
+                                    this.gameArray[i][j] = '0';
+                                    document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
                                     return;
-                                } else if (this.gameArray[i][j] === '') {
+                                } else {
+                                    console.log('item', item);
+                                    let freeCellRandom = item.split('');
+                                    let [i, j] = freeCellRandom;
                                     this.gameArray[i][j] = '0';
                                     let idCell = `__xmlview0--box_${i}-${j}`;
                                     document.querySelector('#' + idCell).classList.add('zero');
-                                    this.checkWins();
                                     return;
+
                                 }
                             }
-                        }
+                        })
                     };
-
                     check();
                     this.canToClick = true;
                 }, 500);
             },
+            winUser: [], //filled with X after each move
+            winAI: [], //filled with 0 after each move
 
             checkWins: function () {
-                let winUser = []; //filled with X after each move
-                let winAI = []; //filled with 0 after each move
+                this.winUser = [];
+                this.winAI = [];
                 for (let i = 0; i < this.gameArray.length; i++) {
                     for (let j = 0; j < this.gameArray.length; j++) {
                         if (this.gameArray[i][j] === 'X') {
                             let cell_i = i.toString();
                             let cell_j = j.toString();
-                            winUser.push(cell_i + cell_j);
+                            this.winUser.push(cell_i + cell_j);
                         } else if (this.gameArray[i][j] === '0') {
                             let cell_i = i.toString();
                             let cell_j = j.toString();
-                            winAI.push(cell_i + cell_j);
+                            this.winAI.push(cell_i + cell_j);
                         }
                     }
                 }
 
                 this.winsArray.forEach(element => {
-                    let count = 0;
+                    let countUser = 0;
+                    let countRival = 0
                     element.forEach(item => {
-                        if (winUser.indexOf(item) > -1) {
-                            count++
+                        if (this.winUser.indexOf(item) > -1) {
+                            countUser++
                         }
                     })
-                    if (count === 3) {
-
+                    if (countUser === 3) {
                         alert('You are win!');
                         this.gameState = 'end';
                     }
