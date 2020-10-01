@@ -80,32 +80,39 @@ sap.ui.define([
                                 })
                                 if (count == 2) {
                                     let freeCell = item.filter(i => {
-                                        if (this.winUser.indexOf(i) === -1) {
-                                            return i
-                                        }
+                                        return this.winUser.indexOf(i) === -1;
                                     });
                                     let [i, j] = freeCell.join('').split('');
-                                    console.log(i, j);
                                     this.gameArray[i][j] = '0';
                                     document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
                                     return;
                                 } else {
-                                   /*  console.log('item', item);
-                                    let freeCellRandom = item.split('');
-                                    let [i, j] = freeCellRandom;
-                                    this.gameArray[i][j] = '0';
-                                    let idCell = `__xmlview0--box_${i}-${j}`;
-                                    document.querySelector('#' + idCell).classList.add('zero');
-                                    return; */
-
+                                    for (let i = 0; i < this.gameArray.length; i++) {
+                                        for (let j = 0; j < this.gameArray.length; j++) {
+                                            if (this.gameArray[i][j] === '') {
+                                                console.log(this.gameArray[i][j]);
+                                                this.gameArray[i][j] = '0';
+                                                document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
+                                                // this.checkWins();
+                                                // break;
+                                            }
+                                           
+                                            return;
+            
+                                        }
+                                    }
                                 }
+// this.checkWins();
                             }
+
                         })
                     };
+                    // this.checkWins();
                     check();
                     this.canToClick = true;
                 }, 500);
             },
+
             winUser: [], //filled with X after each move
             winAI: [], //filled with 0 after each move
 
