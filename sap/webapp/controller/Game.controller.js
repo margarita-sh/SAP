@@ -7,6 +7,8 @@ sap.ui.define([
         return Controller.extend("ns.sap.controller.Game", {
             gameState: 'process',
             canToClick: true,
+            winUser: [], //filled with X after each move
+            winAI: [], //filled with 0 after each move
 
             gameArray: [
                 ['', '', ''],
@@ -66,55 +68,59 @@ sap.ui.define([
                 this.canToClick = false;
                 setTimeout(() => {
                     const check = () => {
-                        this.winsArray.forEach((item) => {
-                            if (this.gameArray[1][1] == '') {
-                                this.gameArray[1][1] = '0';
-                                document.querySelector('#__xmlview0--box_1-1').classList.add('zero');
-                                return;
-                            } else {
+                        if (this.gameArray[1][1] == '') {
+                            this.gameArray[1][1] = '0';
+                            document.querySelector('#__xmlview0--box_1-1').classList.add('zero');
+                        } else {
+                            let lastCount = 0;
+                            let lastItem = [];
+                            for (let item of this.winsArray) {
                                 let count = 0;
+                                let totalCount = 0;
                                 item.forEach((data) => {
                                     if (this.winUser.indexOf(data) > -1) {
-                                        count++
+                                        count++;
                                     }
-                                })
-                                if (count == 2) {
-                                    let freeCell = item.filter(i => {
-                                        return this.winUser.indexOf(i) === -1;
-                                    });
-                                    let [i, j] = freeCell.join('').split('');
-                                    this.gameArray[i][j] = '0';
-                                    document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
-                                    return;
-                                } else {
-                                    for (let i = 0; i < this.gameArray.length; i++) {
-                                        for (let j = 0; j < this.gameArray.length; j++) {
-                                            if (this.gameArray[i][j] === '') {
-                                                console.log(this.gameArray[i][j]);
-                                                this.gameArray[i][j] = '0';
-                                                document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
-                                                // this.checkWins();
-                                                // break;
-                                            }
-                                           
+                                    const [i, j] = data.split('');
+                                    if (this.gameArray[i][j]) {
+                                        totalCount++;
+                                    }
+                                });
+
+                                if (count > lastCount && totalCount < 3) {
+                                    lastCount = count;
+                                    lastItem = item;
+                                }
+                            }
+
+                            if (lastCount == 2) {
+                                let freeCell = lastItem.filter(i => {
+                                    return this.winUser.indexOf(i) === -1;
+                                });
+                                let [i, j] = freeCell.join('').split('');
+                                this.gameArray[i][j] = '0';
+                                document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
+                            } else {
+                                console.log('2');
+                                for (let i = 0; i < this.gameArray.length; i++) {
+                                    for (let j = 0; j < this.gameArray.length; j++) {
+                                        console.log(i, j)
+                                        if (this.gameArray[i][j] === '') {
+                                            console.log('this.gameArray[i][j]');
+                                            this.gameArray[i][j] = '0';
+                                            document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
                                             return;
-            
                                         }
                                     }
                                 }
-// this.checkWins();
                             }
-
-                        })
+                        }
                     };
-                    // this.checkWins();
+                    this.checkWins();
                     check();
                     this.canToClick = true;
                 }, 500);
             },
-
-            winUser: [], //filled with X after each move
-            winAI: [], //filled with 0 after each move
 
             checkWins: function () {
                 this.winUser = [];
@@ -139,10 +145,15 @@ sap.ui.define([
                     element.forEach(item => {
                         if (this.winUser.indexOf(item) > -1) {
                             countUser++
+                        } else if (this.winAI.indexOf(item) > -1) {
+                            countRival++
                         }
                     })
                     if (countUser === 3) {
                         alert('You are win!');
+                        this.gameState = 'end';
+                    } else if (countRival === 3) {
+                        alert('you lose');
                         this.gameState = 'end';
                     }
                 });
