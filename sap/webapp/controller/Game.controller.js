@@ -36,7 +36,6 @@ sap.ui.define([
             },
 
             onMakeStep: function (event) {
-                this.checkWins();
                 if (this.gameState !== 'process' || this.canToClick == false) {
                     return;
                 }
@@ -49,7 +48,7 @@ sap.ui.define([
                     this.gameArray[coordString][coordColumn] = 'X';
                     document.querySelector('#' + idSAP).classList.add('cross');
                     setTimeout(() => {
-                        // this.checkWins();
+                        this.checkWins();
                         if (this.gameState !== 'process') {
                             setTimeout(() => {
                                 this.finishGame();
@@ -66,15 +65,7 @@ sap.ui.define([
             onStepRival: function () {
                 this.canToClick = false;
                 setTimeout(() => {
-                    this.checkWins();
-                      if (this.gameState !== 'process') {
-                        setTimeout(() => {
-                            this.finishGame();
-                        }, 1000);
-                    } else {
-                        // this.checkWins();
                     const check = () => {
-                        //  this.checkWins();
                         if (this.gameArray[1][1] == '') {
                             this.gameArray[1][1] = '0';
                             document.querySelector('#__xmlview0--box_1-1').classList.add('zero');
@@ -133,77 +124,21 @@ sap.ui.define([
                                 }
                             }
                         }
+                        setTimeout(() => {
+                            this.checkWins();
+                            if (this.gameState !== 'process') {
+                                setTimeout(() => {
+                                    this.finishGame();
+                                }, 500);
+                            }
+                        }, 0);
                     }
-                     check();
-                        // this.checkWins();
-                        this.canToClick = true;
-                }
-     
+                    check();
+                    this.canToClick = true;
                 }, 500);
             },
 
             checkWins: function () {
-                /*  this.winUser = [];
-                this.winAI = [];
-                for (let i = 0; i < this.gameArray.length; i++) {
-                    for (let j = 0; j < this.gameArray[i].length; j++) {
-                        if (this.gameArray[i][j] === 'X') {
-                            let cell_i = i.toString();
-                            let cell_j = j.toString();
-                            this.winUser.push(cell_i + cell_j);
-                        } else if (this.gameArray[i][j] === '0') {
-                            let cell_i = i.toString();
-                            let cell_j = j.toString();
-                            this.winAI.push(cell_i + cell_j);
-                        }
-                    }
-                }
-                let lastCount_User = 0;
-                let lastCount_Rival = 0;
-                let lastItem_User = [];
-                let lastItem_Rival = [];
-
-                for (let element of this.winsArray) {
-                    let countUser = 0;
-                    let countRival = 0;
-                    let totalCount = 0;
-                    for (let item of element) {
-                        if (this.winUser.indexOf(item) > -1) {
-                            countUser++
-                        } else if (this.winAI.indexOf(item) > -1) {
-                            countRival++
-                        }
-                        const [i, j] = item.split('');
-                        if (this.gameArray[i][j]) {
-                            totalCount++;
-                        }
-                    }
-                        if (countRival > lastCount_Rival && totalCount < 3) {
-                            lastCount_Rival = countRival;
-                            lastItem_Rival = element;
-                        } else if (countUser > lastCount_User && totalCount < 3) {
-                            lastCount_User = countUser;
-                            lastItem_User = element;
-                        }
-
-                    }
-
-
-                    if (this.gameArray.indexOf('') > -1) {
-                        alert('ничья');
-                        this.gameState = 'end';
-                    } else if (lastCount_Rival === 3) {
-                        alert('you lose');
-                        this.gameState = 'end';
-                    } else if (lastCount_User === 3) {
-                        alert('You are win!');
-                        this.gameState = 'end';
-                    }
-                    console.log('lastCount_Rival', lastCount_Rival);
-                    console.log('lastCount_User', lastCount_User);
-
-                }
- */
                 this.winUser = [];
                 this.winAI = [];
                 for (let i = 0; i < this.gameArray.length; i++) {
@@ -220,6 +155,9 @@ sap.ui.define([
                     }
                 }
                 this.winsArray.forEach(element => {
+                    if(this.gameState === 'end') {
+                        return;
+                    }
                     let countUser = 0;
                     let countRival = 0;
                     element.forEach(item => {
@@ -229,8 +167,8 @@ sap.ui.define([
                             countRival++
                         }
                     })
-                    if (this.gameArray.indexOf('') > -1) {
-                        alert('ничья');
+                    if (this.gameArray.every(item=>item.indexOf('')<0)) {
+                        alert('dead heat');
                         this.gameState = 'end';
                     } else if (countRival === 3) {
                         alert('you lose');
