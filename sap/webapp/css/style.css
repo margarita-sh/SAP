@@ -9,13 +9,15 @@ height: 100px;
 
 .wrap {
    display:flex;
-   height: 100vh;
+   height: 100vh; 
    justify-content:center;
    align-items:center;
    padding:0;
    background:linear-gradient(rgba(0,0,0,0.4), transparent 1px),
    linear-gradient(90deg, rgba(0,0,0,0.4), transparent 1px);
    background-size:30px 30px;
+   margin:auto;
+
 }
 .box {
    border:2px solid black; 
@@ -66,3 +68,8 @@ height: 100px;
     background-size: cover;
 }
 
+.homePage {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}

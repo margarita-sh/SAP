@@ -1,10 +1,19 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
+    "ns/sap/controller/BaseController"
 ],
-    function (Controller) {
+    function (BaseController) {
         "use strict";
 
-        return Controller.extend("ns.sap.controller.Game", {
+        return BaseController.extend("ns.sap.controller.Game", {
+            onInit: function () {
+                var oRouter, oTarget;
+
+                oRouter = this.getRouter();
+                oTarget = oRouter.getTarget("game");
+                oTarget.attachDisplay(function (oEvent) {
+                    this._oData = oEvent.getParameter("data");	// store the data
+                }, this);
+            },
             gameState: 'process',
             canToClick: true,
             winUser: [], //filled with X after each move
@@ -68,7 +77,7 @@ sap.ui.define([
                     const check = () => {
                         if (this.gameArray[1][1] == '') {
                             this.gameArray[1][1] = '0';
-                            document.querySelector('#__xmlview0--box_1-1').classList.add('zero');
+                            document.querySelector('#container-sap---game--box_1-1').classList.add('zero');
                         } else {
                             let lastCount_X = 0;
                             let lastCount_0 = 0;
@@ -104,20 +113,20 @@ sap.ui.define([
                                 });
                                 let [i, j] = freeCell.join('').split('');
                                 this.gameArray[i][j] = '0';
-                                document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
+                                document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add('zero');
                             } else if (lastCount_X == 2) {
                                 let freeCell = lastItem_X.filter(i => {
                                     return this.winUser.indexOf(i) === -1;
                                 });
                                 let [i, j] = freeCell.join('').split('');
                                 this.gameArray[i][j] = '0';
-                                document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
+                                document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add('zero');
                             } else {
                                 for (let i = 0; i < this.gameArray.length; i++) {
                                     for (let j = 0; j < this.gameArray.length; j++) {
                                         if (this.gameArray[i][j] === '') {
                                             this.gameArray[i][j] = '0';
-                                            document.querySelector(`#__xmlview0--box_${i}-${j}`).classList.add('zero');
+                                            document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add('zero');
                                             return;
                                         }
                                     }
@@ -155,7 +164,7 @@ sap.ui.define([
                     }
                 }
                 this.winsArray.forEach(element => {
-                    if(this.gameState === 'end') {
+                    if (this.gameState === 'end') {
                         return;
                     }
                     let countUser = 0;
@@ -167,7 +176,7 @@ sap.ui.define([
                             countRival++
                         }
                     })
-                    if (this.gameArray.every(item=>item.indexOf('')<0)) {
+                    if (this.gameArray.every(item => item.indexOf('') < 0)) {
                         alert('dead heat');
                         this.gameState = 'end';
                     } else if (countRival === 3) {
@@ -179,7 +188,17 @@ sap.ui.define([
                     }
                 });
 
-            }
+            },
+            onNavBack: function () {
+                // in some cases we could display a certain target when the back button is pressed
+                if (this._oData && this._oData.fromTarget) {
+                    this.getRouter().getTargets().display(this._oData.fromTarget);
+                    delete this._oData.fromTarget;
+                    return;
+                }
+                  BaseController.prototype.onNavBack.apply(this, arguments);
+            },
+          
 
         });
     });
