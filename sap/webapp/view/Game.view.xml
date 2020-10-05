@@ -6,23 +6,20 @@ xmlns:l="sap.ui.layout"
 xmlns:grid="sap.ui.layout.cssgrid"
 xmlns:html="http://www.w3.org/1999/xhtml"
 xmlns:app="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-
-<!-- <html:div class="wrap"> -->
 <Page showNavButton="true"
 	  navButtonPress="onNavBack">
 <html:div class="wrap">
 <html:div class="container">
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_one" id="box_0-0" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_two" id="box_0-1" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_three" id="box_0-2" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_four" id="box_1-0" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_five" id="box_1-1" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_six" id="box_1-2" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_seven" id="box_2-0" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_eight" id="box_2-1" press=".onMakeStep"/>
-<Button class="exampleDiv sapUiNoMarginTop sapUiNoMarginEnd box box_nine" id="box_2-2" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_one" id="box_0-0" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_two" id="box_0-1" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_three" id="box_0-2" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_four" id="box_1-0" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_five" id="box_1-1" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_six" id="box_1-2" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_seven" id="box_2-0" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_eight" id="box_2-1" press=".onMakeStep"/>
+<Button class="sapUiNoMarginTop sapUiNoMarginEnd box box_nine" id="box_2-2" press=".onMakeStep"/>
 </html:div>
 </html:div>
 </Page>
-<!-- </html:div> -->
 </mvc:View>

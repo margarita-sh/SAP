@@ -9,7 +9,17 @@ sap.ui.define([
             this.getRouter().getTargets().display("game", {
 				fromTarget : "home"
 			});
-        }
+        },
+     
+     figureSelection: function(event) {
+       let oRouter = sap.ui.core.UIComponent.getRouterFor(this);
+      console.log('oRouter', oRouter);
+      let textOnButton = event.getSource().mProperties.text;
+      console.log('textOnButton', textOnButton);
+      oRouter.navTo("appHome", {
+          FigureUser: textOnButton
+      }); 
+    }
     });
 
 });

@@ -82,7 +82,7 @@
             },
             "routes": [
                 {
-                    "pattern": "",
+                    "pattern": "home",
                     "name": "appHome",
                     "target": "home"
                 },

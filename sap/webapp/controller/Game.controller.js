@@ -6,19 +6,30 @@ sap.ui.define([
 
         return BaseController.extend("ns.sap.controller.Game", {
             onInit: function () {
-                var oRouter, oTarget;
-
-                oRouter = this.getRouter();
+                let oRouter, oTarget;
+                oRouter = this.getRouter(); 
+             /*    let oRouter = sap.ui.core.UIComponent.getRouterFor(this); */
                 oTarget = oRouter.getTarget("game");
                 oTarget.attachDisplay(function (oEvent) {
                     this._oData = oEvent.getParameter("data");	// store the data
                 }, this);
+              /*   oRouter.getRoute("appHome").attachMatched(this._onRouteMatched, this); */
             },
+
             gameState: 'process',
             canToClick: true,
             winUser: [], //filled with X after each move
             winAI: [], //filled with 0 after each move
+            user: "X",
+            rival: "0",
 
+            /*  _onRouteMatched: function(oEvent) {
+                console.log('oEvent', oEvent);
+        let figureUser = oEvent.getParameter("arguments").FigureUser;
+        console.log('figureUser', figureUser);
+    },
+  */
+            
             gameArray: [
                 ['', '', ''],
                 ['', '', ''],
@@ -34,6 +45,11 @@ sap.ui.define([
                 ['00', '11', '22'],
                 ['02', '11', '20'],
             ],
+
+            handlePlayerChange: function () {
+                this.user = this.user === "X" ? "O" : "X";
+
+            },
 
             finishGame: function () {
                 this.gameState = 'process';
@@ -196,9 +212,9 @@ sap.ui.define([
                     delete this._oData.fromTarget;
                     return;
                 }
-                  BaseController.prototype.onNavBack.apply(this, arguments);
+                BaseController.prototype.onNavBack.apply(this, arguments);
             },
-          
+
 
         });
     });
