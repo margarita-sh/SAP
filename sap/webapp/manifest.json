@@ -82,13 +82,13 @@
             },
             "routes": [
                 {
-                    "pattern": "home",
-                    "name": "appHome",
+                    "pattern": "",
+                    "name": "home",
                     "target": "home"
                 },
                  {
                     "pattern": "game",
-                    "name": "appGame",
+                    "name": "game",
                     "target": "game"
                 }
             ],

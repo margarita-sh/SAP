@@ -7,13 +7,15 @@ sap.ui.define([
         return BaseController.extend("ns.sap.controller.Game", {
             onInit: function () {
                 let oRouter, oTarget;
-                oRouter = this.getRouter(); 
-             /*    let oRouter = sap.ui.core.UIComponent.getRouterFor(this); */
+                oRouter = this.getRouter();
+                /*    let oRouter = sap.ui.core.UIComponent.getRouterFor(this); */
                 oTarget = oRouter.getTarget("game");
                 oTarget.attachDisplay(function (oEvent) {
                     this._oData = oEvent.getParameter("data");	// store the data
                 }, this);
-              /*   oRouter.getRoute("appHome").attachMatched(this._onRouteMatched, this); */
+
+                this.getRouter().getRoute("game").attachMatched(this.onRouteMatched, this);
+
             },
 
             gameState: 'process',
@@ -23,13 +25,15 @@ sap.ui.define([
             user: "X",
             rival: "0",
 
-            /*  _onRouteMatched: function(oEvent) {
-                console.log('oEvent', oEvent);
-        let figureUser = oEvent.getParameter("arguments").FigureUser;
-        console.log('figureUser', figureUser);
-    },
-  */
-            
+            onRouteMatched: function () {
+                let oModel = this.getView().getModel("figureUser").oData.figure;
+                if(oModel === 'X') {
+                  'X'
+                }else if(oModel === '0') {
+                     '0'
+                }
+            },
+
             gameArray: [
                 ['', '', ''],
                 ['', '', ''],
@@ -48,7 +52,6 @@ sap.ui.define([
 
             handlePlayerChange: function () {
                 this.user = this.user === "X" ? "O" : "X";
-
             },
 
             finishGame: function () {

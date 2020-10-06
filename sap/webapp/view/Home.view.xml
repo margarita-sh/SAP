@@ -4,7 +4,7 @@
    xmlns:mvc="sap.ui.core.mvc">
    <Page title="{i18n>homePageTitle}" class="sapUiResponsiveContentPadding">
    <FlexBox class="homePage">
-         <Button id="displayGameButton" text="{i18n>GoToGame}" press=".onDisplayGame" class="sapUiTinyMarginEnd"/>
+      <!--    <Button id="displayGameButton" text="{i18n>GoToGame}" press=".onDisplayGame" class="sapUiTinyMarginEnd"/> -->
          <Button id="cross" press=".figureSelection" text="X"/>
          <Button id="zero" press=".figureSelection"  text="0"/>
    </FlexBox>
