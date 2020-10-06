@@ -8,7 +8,6 @@ sap.ui.define([
             onInit: function () {
                 let oRouter, oTarget;
                 oRouter = this.getRouter();
-                /*    let oRouter = sap.ui.core.UIComponent.getRouterFor(this); */
                 oTarget = oRouter.getTarget("game");
                 oTarget.attachDisplay(function (oEvent) {
                     this._oData = oEvent.getParameter("data");	// store the data
@@ -27,11 +26,8 @@ sap.ui.define([
 
             onRouteMatched: function () {
                 let oModel = this.getView().getModel("figureUser").oData.figure;
-                if(oModel === 'X') {
-                  'X'
-                }else if(oModel === '0') {
-                     '0'
-                }
+                this.user = oModel;
+                this.rival = this.user === "X" ? "O" : "X";
             },
 
             gameArray: [
@@ -49,10 +45,6 @@ sap.ui.define([
                 ['00', '11', '22'],
                 ['02', '11', '20'],
             ],
-
-            handlePlayerChange: function () {
-                this.user = this.user === "X" ? "O" : "X";
-            },
 
             finishGame: function () {
                 this.gameState = 'process';
@@ -73,8 +65,8 @@ sap.ui.define([
                 let coordString = coordStep.split('-').slice(0, 1).join();
                 let coordColumn = coordStep.split('-').slice(1).join();
                 if (this.gameArray[coordString][coordColumn] === '') {
-                    this.gameArray[coordString][coordColumn] = 'X';
-                    document.querySelector('#' + idSAP).classList.add('cross');
+                    this.gameArray[coordString][coordColumn] = this.user;
+                    document.querySelector('#' + idSAP).classList.add(this.user === 'X' ? 'cross' : 'zero');
                     setTimeout(() => {
                         this.checkWins();
                         if (this.gameState !== 'process') {
@@ -92,11 +84,12 @@ sap.ui.define([
 
             onStepRival: function () {
                 this.canToClick = false;
+                const stepClass = this.rival === 'X' ? 'cross' : 'zero';
                 setTimeout(() => {
                     const check = () => {
                         if (this.gameArray[1][1] == '') {
-                            this.gameArray[1][1] = '0';
-                            document.querySelector('#container-sap---game--box_1-1').classList.add('zero');
+                            this.gameArray[1][1] = this.rival;
+                            document.querySelector('#container-sap---game--box_1-1').classList.add(stepClass);
                         } else {
                             let lastCount_X = 0;
                             let lastCount_0 = 0;
@@ -131,21 +124,21 @@ sap.ui.define([
                                     return this.winAI.indexOf(i) === -1;
                                 });
                                 let [i, j] = freeCell.join('').split('');
-                                this.gameArray[i][j] = '0';
-                                document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add('zero');
+                                this.gameArray[i][j] = this.rival
+                                document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add(stepClass);
                             } else if (lastCount_X == 2) {
                                 let freeCell = lastItem_X.filter(i => {
                                     return this.winUser.indexOf(i) === -1;
                                 });
                                 let [i, j] = freeCell.join('').split('');
-                                this.gameArray[i][j] = '0';
-                                document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add('zero');
+                                this.gameArray[i][j] = this.rival
+                                document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add(stepClass);
                             } else {
                                 for (let i = 0; i < this.gameArray.length; i++) {
                                     for (let j = 0; j < this.gameArray.length; j++) {
                                         if (this.gameArray[i][j] === '') {
-                                            this.gameArray[i][j] = '0';
-                                            document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add('zero');
+                                            this.gameArray[i][j] = this.rival
+                                            document.querySelector(`#container-sap---game--box_${i}-${j}`).classList.add(stepClass);
                                             return;
                                         }
                                     }
@@ -167,15 +160,16 @@ sap.ui.define([
             },
 
             checkWins: function () {
+                console.log('this.gameArray', this.gameArray);
                 this.winUser = [];
                 this.winAI = [];
                 for (let i = 0; i < this.gameArray.length; i++) {
                     for (let j = 0; j < this.gameArray[i].length; j++) {
-                        if (this.gameArray[i][j] === 'X') {
+                        if (this.gameArray[i][j] === this.user) {
                             let cell_i = i.toString();
                             let cell_j = j.toString();
                             this.winUser.push(cell_i + cell_j);
-                        } else if (this.gameArray[i][j] === '0') {
+                        } else if (this.gameArray[i][j] === this.rival) {
                             let cell_i = i.toString();
                             let cell_j = j.toString();
                             this.winAI.push(cell_i + cell_j);
@@ -206,10 +200,8 @@ sap.ui.define([
                         this.gameState = 'end';
                     }
                 });
-
             },
             onNavBack: function () {
-                // in some cases we could display a certain target when the back button is pressed
                 if (this._oData && this._oData.fromTarget) {
                     this.getRouter().getTargets().display(this._oData.fromTarget);
                     delete this._oData.fromTarget;
