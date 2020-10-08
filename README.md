@@ -1,2 +1,2 @@
 # SAP
-http://succinct-turn.surge.sh/
+https://succinct-turn.surge.sh/
